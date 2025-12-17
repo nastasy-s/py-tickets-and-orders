@@ -45,7 +45,7 @@ class Order(models.Model):
         ordering = ["-created_at"]
 
 
-def __str__(self):
+def __str__(self) -> str:  # noqa: ANN001, ANN204
     return f"<Order: {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}>"
 
 
@@ -127,7 +127,7 @@ class Ticket(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  # noqa: ANN001, ANN204
         return (
             f"<Ticket: {self.movie_session.movie.title} "
             f"{self.movie_session.show_time} "
