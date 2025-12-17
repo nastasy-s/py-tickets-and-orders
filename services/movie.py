@@ -1,27 +1,31 @@
+from typing import Optional
+from django.db.models import QuerySet
 from django.db import transaction
 from db.models import Movie
 
 
-def get_movies(genres_ids=None, actors_ids=None, title=None):
-
+def get_movies(
+        genres_ids: Optional[list[int]] = None,
+        actors_ids: Optional[list[int]] = None,
+        title: Optional[str] = None,
+) -> QuerySet[Movie]:
     queryset = Movie.objects.all()
-
     if genres_ids is not None:
         queryset = queryset.filter(genres__id__in=genres_ids)
-
     if actors_ids is not None:
         queryset = queryset.filter(actors__id__in=actors_ids)
-
     if title is not None:
         queryset = queryset.filter(title__icontains=title)
-
     return queryset.distinct()
 
 
 @transaction.atomic
-def create_movie(movie_title, movie_description, genres_ids=None, actors_ids=None):
-
-
+def create_movie(
+        movie_title: str,
+        movie_description: str,
+        genres_ids: Optional[list[int]] = None,
+        actors_ids: Optional[list[int]] = None
+) -> Movie:
     movie = Movie.objects.create(
         title=movie_title,
         description=movie_description
