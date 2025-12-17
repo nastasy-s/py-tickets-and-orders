@@ -30,7 +30,7 @@ def update_movie_session(
         movie_id: int = None,
         cinema_hall_id: int = None,
 ) -> None:
-    movie_session = MovieSession.objects.get(id=session_id)
+    movie_session = get_movie_session_by_id(session_id)
     if show_time:
         movie_session.show_time = show_time
     if movie_id:
@@ -45,7 +45,8 @@ def delete_movie_session_by_id(session_id: int) -> None:
 
 
 def get_taken_seats(movie_session_id: int) -> list:
-    tickets = MovieSession.objects.get(id=movie_session_id).tickets.all()
+    movie_session = get_movie_session_by_id(movie_session_id)
+    tickets = movie_session.tickets.all()
 
     return [
         {

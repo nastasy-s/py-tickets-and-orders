@@ -44,8 +44,9 @@ class Order(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
-    def __str__(self) -> str:
-        return self.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+def __str__(self):
+    return f"<Order: {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}>"
 
 
 class CinemaHall(models.Model):
@@ -128,7 +129,7 @@ class Ticket(models.Model):
 
     def __str__(self) -> str:
         return (
-            f"{self.movie_session.movie.title} "
+            f"<Ticket: {self.movie_session.movie.title} "
             f"{self.movie_session.show_time} "
-            f"(row: {self.row}, seat: {self.seat})"
+            f"(row: {self.row}, seat: {self.seat})>"
         )

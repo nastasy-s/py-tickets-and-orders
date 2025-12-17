@@ -26,6 +26,9 @@ def create_movie(
         genres_ids: Optional[list[int]] = None,
         actors_ids: Optional[list[int]] = None
 ) -> Movie:
+    """
+    Create movie with genres and actors.
+    """
     movie = Movie.objects.create(
         title=movie_title,
         description=movie_description
